@@ -2,3 +2,4 @@
 mail/*
 *.pyc
 app_info/config.json
+docs/
