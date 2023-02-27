@@ -1,4 +1,3 @@
-from os import link
 from time import sleep
 from scraping import news_page, ctrl_str
 from dbutils import dbCommon
@@ -23,9 +22,9 @@ class NewsNotifyMain():
             for test in f.readlines():
                 target_list.append(ctrl_str.CtrlStr().remove(test, "\r\n", "\n"))
         # for each security number, run code
-        print(target_list)
         for sec_no in target_list:
-        # get today news
+            sleep(1)
+            # get today news
             np = news_page.NewsPage(sec_no)
             topics = np.get_topics()
             company = np.get_company()
