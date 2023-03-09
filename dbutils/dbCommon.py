@@ -10,8 +10,8 @@ class DbUtils():
         conf = config.Config()
         # クライアント取得
         self.client = MongoClient(conf.mongo_url)
-        self.db = self.client.ipocc2
-        self.code_list = self.db.codelist2
+        self.db = self.client.ipocc
+        self.code_list = self.db.codelist
         self.news = self.db.news
         now = datetime.date.today()
         self.today_yyyyMMdd = now.strftime("%Y%m%d")
@@ -43,6 +43,7 @@ class DbUtils():
                 "securitiesNo": 1,
                 "expectedProfitAfterTD": 1,
                 "grade": 1,
+                "bookbuilding": 1,
             }
         )
         return target
