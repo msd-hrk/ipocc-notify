@@ -2,7 +2,7 @@ from dbutils import dbCommon
 from mail import mail
 from app_info import config
 db = dbCommon.DbUtils()
-text = ""
+text = "取得先は<a href=\"https://ipokabu.net/yotei/\">こちら</a><br><br>"
 
 # 本日上場企業
 text = text + "【本日上場】<br>"
@@ -23,17 +23,20 @@ for bdt in db.get_bookbillding():
     company = "●" + bdt["company"] + "（" + bdt["securitiesNo"] + "）"
     period = "　期間　　：" + st_mon + "/" + st_day + "　〜　" + ed_mon + "/" + ed_day
     grade = "　評価　　：" + bdt["grade"]
-    td_price = "　仮条件　：" + str(bdt["expectedProfitAfterTD"]["tdPrice"]["min"]) + "　〜　" + str(bdt["expectedProfitAfterTD"]["tdPrice"]["max"])
-    ex_profit = "　予想利益：" + str(bdt["expectedProfitAfterTD"]["exProfit"]["min"]) + "　〜　" + str(bdt["expectedProfitAfterTD"]["exProfit"]["max"])
+    td_price = "　仮条件　：No data"
+    ex_profit = "　予想利益：No data"
+    if "expectedProfitAfterTD" in bdt:
+        td_price = "　仮条件　：" + str(bdt["expectedProfitAfterTD"]["tdPrice"]["min"]) + "　〜　" + str(bdt["expectedProfitAfterTD"]["tdPrice"]["max"])
+        ex_profit = "　予想利益：" + str(bdt["expectedProfitAfterTD"]["exProfit"]["min"]) + "　〜　" + str(bdt["expectedProfitAfterTD"]["exProfit"]["max"])
     text = text + '<br>'.join([company, period, grade, td_price, ex_profit, "<br>"])
 
 # 購入期間
 text = text + "【購入期間】<br>"
 for pdt in db.get_purchase():
-    st_mon = str(bdt["purchasePeriod"]["start"])[4:6]
-    st_day = str(bdt["purchasePeriod"]["start"])[6:]
-    ed_mon = str(bdt["purchasePeriod"]["end"])[4:6]
-    ed_day = str(bdt["purchasePeriod"]["end"])[6:]
+    st_mon = str(pdt["purchasePeriod"]["start"])[4:6]
+    st_day = str(pdt["purchasePeriod"]["start"])[6:]
+    ed_mon = str(pdt["purchasePeriod"]["end"])[4:6]
+    ed_day = str(pdt["purchasePeriod"]["end"])[6:]
 
     company = "■" + pdt["company"] + "（" + pdt["securitiesNo"] + "）"
     period = "　期間　　：" + st_mon + "/" + st_day + "　〜　" + ed_mon + "/" + ed_day
